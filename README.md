@@ -98,3 +98,48 @@ int main()
     return 0;
 }
 
+Практическая работа 4. Вариант 3.
+
+#include <iostream>
+#include "locale"
+
+using namespace std;
+
+void zap(int n,int m,int **mas) {
+int i,j;
+for (i=0;i<n;i++)
+    for (j=0;j<m;j++)
+       mas[i][j]=10 + rand() % 41 ;
+}
+
+void vyv(int n,int m,int **mas) {
+int i,j;
+for (i=0;i<n;i++) {
+    for (j=0;j<m;j++) {
+        cout << mas[i][j] << " ";
+    }
+    cout << "\n";
+}
+}
+
+int main()
+{
+setlocale(LC_ALL,"Russian");
+
+int n,m;
+cout << "Введите количество строк: ";
+cin >> n;
+cout << "\nВведите количество столбцов: ";
+cin >> m;
+cout << "\n";
+int **mas=new int*[n];
+for (int l=0;l<m;l++)
+        mas[l] = new int[m];
+
+zap(n,m,mas);
+vyv(n,m,mas);
+
+delete [] mas;
+    return 0;
+}
+
