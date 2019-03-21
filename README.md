@@ -143,3 +143,82 @@ delete [] mas;
     return 0;
 }
 
+Практическая работа 5, вариант 4.
+
+#include <iostream>
+#include <cmath>
+#include <typeinfo>
+#include "locale"
+using namespace std;
+
+void calc(int n, char c, int m){
+switch (c){
+          case '+': cout << n << c << m << "=" << (n+m) << endl; break;
+          case '-': cout << n << c << m << "=" << (n-m) << endl; break;
+          case '/': cout << n << c << m << "=" << (n/m) << endl; break;
+          case '*': cout << n << c << m << "=" << (n*m) << endl; break;
+          case '^': cout << n << c << m << "=" << pow(n,m) << endl; break;
+          default: cout<<"Такой операции нет"<< endl;
+         }
+}
+void calc(double n, char c, double m){
+switch (c){
+          case '+': cout << n << c << m << "=" << (n+m) << endl; break;
+          case '-': cout << n << c << m << "=" << (n-m) << endl; break;
+          case '/': cout << n << c << m << "=" << (n/m) << endl; break;
+          case '*': cout << n << c << m << "=" << (n*m) << endl; break;
+          case '^': cout << n << c << m << "=" << pow(n,m) << endl; break;
+          default: cout<<"Такой операции нет"<< endl;
+         }
+}
+void calc(double n, char c, int m){
+switch (c){
+          case '+': cout << n << c << m << "=" << (n+m) << endl; break;
+          case '-': cout << n << c << m << "=" << (n-m) << endl; break;
+          case '/': cout << n << c << m << "=" << (n/m) << endl; break;
+          case '*': cout << n << c << m << "=" << (n*m) << endl; break;
+          case '^': cout << n << c << m << "=" << pow(n,m) << endl; break;
+          default: cout<<"Такой операции нет"<< endl;
+         }
+}
+void calc(int n, char c, double m){
+switch (c){
+          case '+': cout << n << c << m << "=" << (n+m) << endl; break;
+          case '-': cout << n << c << m << "=" << (n-m) << endl; break;
+          case '/': cout << n << c << m << "=" << (n/m) << endl; break;
+          case '*': cout << n << c << m << "=" << (n*m) << endl; break;
+          case '^': cout << n << c << m << "=" << pow(n,m) << endl; break;
+          default: cout<<"Такой операции нет"<< endl;
+         }
+}
+int main(){
+    char a;
+    string c,b;
+    int i,p=0,r=0,xi,yi;
+    double xd,yd;
+    setlocale(LC_ALL,"Russian");
+
+    cout<<"Введите первый операнд: \n";
+    cin>>c;
+    cout<<"Введите знак операции: \n";
+    cin>>a;
+    cout<<"Введите второй операнд:\n";
+    cin>>b;
+
+    for (i=0;i<c.length();i++) {
+     if (c[i]=='.')  p=1;
+    }
+    if (p==0) xi=stoi(c); else xd=stod(c);
+
+    for (i=0;i<b.length();i++) {
+     if (b[i]=='.')  r=1;
+    }
+    if (r==0) yi=stoi(b); else yd=stod(b);
+
+    if ((p==0)&&(r==0)) calc(xi,a,yi);
+    if ((p==0)&&(r==1)) calc(xi,a,yd);
+    if ((p==1)&&(r==0)) calc(xd,a,yi);
+    if ((p==1)&&(r==1)) calc(xd,a,yd);
+
+    return 0;
+}
