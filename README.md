@@ -198,27 +198,155 @@ int main(){
     double xd,yd;
     setlocale(LC_ALL,"Russian");
 
-    cout<<"Введите первый операнд: \n";
-    cin>>c;
-    cout<<"Введите знак операции: \n";
-    cin>>a;
-    cout<<"Введите второй операнд:\n";
-    cin>>b;
+   cout<<"Введите первый операнд: \n";
+   cin>>c;
+   cout<<"Введите знак операции: \n";
+   cin>>a;
+   cout<<"Введите второй операнд:\n";
+   cin>>b;
 
-    for (i=0;i<c.length();i++) {
+   for (i=0;i<c.length();i++) {
      if (c[i]=='.')  p=1;
-    }
-    if (p==0) xi=stoi(c); else xd=stod(c);
+   }
+   if (p==0) xi=stoi(c); else xd=stod(c);
 
-    for (i=0;i<b.length();i++) {
-     if (b[i]=='.')  r=1;
-    }
+   for (i=0;i<b.length();i++) {
+    if (b[i]=='.')  r=1;
+   }
     if (r==0) yi=stoi(b); else yd=stod(b);
 
-    if ((p==0)&&(r==0)) calc(xi,a,yi);
-    if ((p==0)&&(r==1)) calc(xi,a,yd);
-    if ((p==1)&&(r==0)) calc(xd,a,yi);
-    if ((p==1)&&(r==1)) calc(xd,a,yd);
+   if ((p==0)&&(r==0)) calc(xi,a,yi);
+   if ((p==0)&&(r==1)) calc(xi,a,yd);
+   if ((p==1)&&(r==0)) calc(xd,a,yi);
+   if ((p==1)&&(r==1)) calc(xd,a,yd);
 
-    return 0;
+   return 0;
+}
+
+
+Практическая работа 6. Вариант 1. 
+
+Файл Property.h
+
+#ifndef PROPERTY_H
+#define PROPERTY_H
+class Property
+{
+    public:
+        Property();
+        virtual ~Property();
+        Property(double);
+        virtual double bill() = 0;
+    protected:
+        double worth;
+};
+#endif
+
+Файл Property.cpp
+
+#include "Property.h"
+Property::Property() {}
+Property::~Property() {}
+Property::Property(double worth) {
+	this->worth = worth;
+}
+
+Файл Appartment.h
+
+#ifndef APPARTMENT_H
+#define APPARTMENT_H
+#include "Property.h"
+class Appartment : public Property {
+public:
+    Appartment();
+	Appartment(double);
+	double bill() override;
+	~Appartment();
+};
+#endif
+
+Файл Appartment.cpp
+
+#include "Appartment.h"
+Appartment::Appartment(){}
+Appartment::~Appartment() {}
+Appartment::Appartment(double worth):Property(worth){}
+double Appartment::bill() {
+	return worth/1000;
+}
+
+Файл Car.h
+
+#ifndef CAR_H
+#define CAR_H
+#include "Property.h"
+class Car : public Property {
+    public:
+        Car();
+        virtual ~Car();
+        Car(double);
+        double bill() override;
+};
+#endif
+
+Файл Car.cpp
+
+#include "Car.h"
+Car::Car() {}
+Car::~Car() {}
+Car::Car(double worth):Property::Property(worth){}
+double Car::bill() {
+	return worth / 200;
+}
+
+Файл CountryHouse.h
+
+#ifndef COUNTRYHOUSE_H
+#define COUNTRYHOUSE_H
+#include "Property.h"
+class CountryHouse : public Property {
+    public:
+        CountryHouse();
+        virtual ~CountryHouse();
+        CountryHouse(double);
+        double bill() override;
+};
+#endif
+
+Файл CountryHouse.cpp
+
+#include "CountryHouse.h"
+CountryHouse::CountryHouse(double worth):Property::Property(worth){}
+double CountryHouse::bill() {
+	return worth / 500;
+}
+CountryHouse::CountryHouse() {}
+CountryHouse::~CountryHouse() {}
+
+Файл main.cpp
+
+#include <iostream>
+#include "Property.h"
+#include "Appartment.h"
+#include "Car.h"
+#include "CountryHouse.h"
+#include "locale"
+using namespace std;
+int main()
+{
+  setlocale(LC_ALL,"Russian");
+	Property **property=new Property*[7];
+	property[0]=&Appartment(1000000);
+	property[1]=&Appartment(2000000);
+	property[2]=&Appartment(3000000);
+	property[3]=&Car(400000);
+	property[4]=&Car(500000);
+	property[5]=&CountryHouse(6000000);
+	property[6]=&CountryHouse(7000000);
+  double sum = 0;
+  for (int i = 0; i < 7; i++) {
+	  sum += property[i]->bill();
+	}
+  cout << "К оплате счетов: " << sum;
+  delete(property);
 }
