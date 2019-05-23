@@ -350,3 +350,28 @@ int main()
   cout << "К оплате счетов: " << sum;
   delete(property);
 }
+	
+
+Практическая работа 8. Вариант 2.
+
+#include <iostream>
+#include <fstream>
+#include <Windows.h>
+#include "string"
+#include "locale"
+using namespace std;
+
+int main()
+{
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
+    setlocale(LC_ALL,"Rus");
+    char s[256];
+    ofstream F("C:\\Users\\ASUS\\Desktop\\oop\\prak\\8\\pr8.txt");
+    cout << "Введите текст: \n";
+    cin.getline(s,256);
+    F << s;
+    cout << "Текст записан в файл.\n";
+    F.close();
+    return 0;
+}
